@@ -1,0 +1,5 @@
+./Cfm2Util -p PARTITION_2 singlecmd zeroizeHSM
+./Cfm2Util -p PARTITION_2 singlecmd loginHSM -u CO -s cavium -p default initHSM -u user123 -p so12345 -sU crypto_user -sO crypto_officer -a 0 -f hsm_config
+./Cfm2Util -p PARTITION_2 singlecmd loginHSM -u CO -s crypto_officer -p so12345 generateKEK
+./Cfm2Util -p PARTITION_2 singlecmd loginHSM -u CO -s crypto_officer -p so12345 generatePEK
+./Cfm2Util -p PARTITION_2 singlecmd loginHSM -u CO -s crypto_officer -p so12345 createUser -u AU -s app_user -p user123

@@ -1,0 +1,12 @@
+/home/qemu-kvm-1.2.0/x86_64-softmmu//qemu-system-x86_64 -hda /halb_home/HALB/images/fedora1.qcow2 -smp 2 -m 2048 -net nic,macaddr=04:05:06:00:11:01 -net tap,ifname=tap1,script=/etc/ifup-br0,downscript=/etc/ifdown-br0 -boot c -device pci-assign,host=02:10.0 &
+
+/home/qemu-kvm-1.2.0/x86_64-softmmu//qemu-system-x86_64 -hda /halb_home/HALB/images/fedora2.qcow2 -smp 2 -m 2048 -net nic,macaddr=04:05:06:00:11:02 -net tap,ifname=tap1,script=/etc/ifup-br0,downscript=/etc/ifdown-br0 -boot c -device pci-assign,host=02:10.2 &
+
+/home/qemu-kvm-1.2.0/x86_64-softmmu//qemu-system-x86_64 -hda /halb_home/HALB/images/fedora2.qcow2 -smp 2 -m 2048 -net nic,macaddr=04:05:06:00:11:02 -net tap,ifname=tap2,script=/etc/ifup-br0,downscript=/etc/ifdown-br0 -boot c -device pci-assign,host=02:10.2 &
+
+/home/qemu-kvm-1.2.0/x86_64-softmmu//qemu-system-x86_64 -hda /halb_home/HALB/images/fedora2.qcow2 -smp 2 -m 2048 -net nic,macaddr=04:05:06:00:12:02 -net tap,ifname=tap2,script=/etc/ifup-br0,downscript=/etc/ifdown-br0 -boot c -device pci-assign,host=02:10.2 &
+
+/home/qemu-kvm-1.2.0/x86_64-softmmu//qemu-system-x86_64 -hda /halb_home/HALB/images/fedora3.qcow2 -smp 2 -m 2048 -net nic,macaddr=04:05:06:00:13:03 -net tap,ifname=tap3,script=/etc/ifup-br0,downscript=/etc/ifdown-br0 -boot c -device pci-assign,host=02:10.4 &
+
+/home/qemu-kvm-1.2.0/x86_64-softmmu//qemu-system-x86_64 -hda /halb_home/HALB/images/fedora4.qcow2 -smp 2 -m 2048 -net nic,macaddr=04:05:06:00:14:04 -net tap,ifname=tap4,script=/etc/ifup-br0,downscript=/etc/ifdown-br0 -boot c -device pci-assign,host=02:10.6 &
+

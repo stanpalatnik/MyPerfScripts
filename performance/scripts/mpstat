@@ -1,0 +1,32 @@
+mpstat -P ALL 1 1 | awk '/%idle/ {for (i=1;i<=NF;i++) {if ($i=="%usr") col=i}}/IST/ {print $col}' b | tr "\n" "  "
+mpstat -P ALL 1 1 | awk '/%idle/ {for (i=1;i<=NF;i++) {if ($i=="%usr") col=i}}/^Average:/ {print $col}' b | tr "\n" "  "
+
+
+mpstat -P ALL 1 1 > a; cat a; cat a | sed -n 1~2p | awk '{print $4}'
+
+
+mpstat -P ALL 2 2 > a ; cat a ; awk '/%idle/ {for (i=1;i<=NF;i++) {if ($i=="%usr") col=i}}/IST/ {print $col}' a | sed -n 1~2p | tr "\n" "\t" ; awk '/%idle/ {for (i=1;i<=NF;i++) {if ($i=="%usr") col=i}}/Average:/ {print $col}' a | sed -n 1~2p | tr "\n" "\t"
+
+mpstat -P ALL 3 1 > a ; cat a ; awk '/%idle/ {for (i=1;i<=NF;i++) {if ($i=="%idle") col=i}}/IST/ {print $col}' a | sed -n 1~2p | tr "\n" "\t" ; echo -e "\n"
+
+mpstat -P ALL 3 1 > a ; cat a ; awk '/%idle/ {for (i=1;i<=NF;i++) {if ($i=="%idle") col=i}}/IST/ {print $col}' a | tr "\n" "\t" ; echo -e "\n"
+
+sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.4 "nohup shutdown -h now &>/dev/null & exit"
+
+=====================================================================================================================================================
+
+echo "rsa2048 sign" >> val ; mpstat -P ALL 3 1 > a ; awk '/%idle/ {for (i=1;i<=NF;i++) {if ($i=="%idle") col=i}}/PM/ {print $col}' a | tr "\n" "\t" >> val ; echo -e "\n" >> val ; cat val
+
+echo "rsa2048 sign" >> val ; mpstat -P ALL 3 1 > a ; awk '/%idle/ {for (i=1;i<=NF;i++) {if ($i=="%idle") col=i}}/IST/ {print $col}' a | sed -n 1~2p | tr "\n" "\t" >>val ; echo -e "\n" >> val ; cat val
+
+
+=====================================================================================================================================================
+
+FINAL COMMANDS
+Server:
+mpstat -P ALL 3 1 > a ; awk '/%idle/ {for (i=1;i<=NF;i++) {if ($i=="%idle") col=i}}/PM/ {print $col}' a | tr "\n" "\t" ; echo -e "\n"
+
+Client:
+mpstat -P ALL 3 1 > a ; awk '/%idle/ {for (i=1;i<=NF;i++) {if ($i=="%idle") col=i}}/IST/ {print $col}' a | sed -n 1~2p | tr "\n" "\t" ; echo -e "\n"
+
+

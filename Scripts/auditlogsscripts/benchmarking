@@ -1,0 +1,10 @@
+Oracle Release
+
+## Set & Get Policy 
+for i in {1..31} ; do echo $i ; source ~/oracle_conf.sh $i 1 ; $co setPolicy -id 514 -value 1 ; done
+for i in {1..31} ; do echo $i ; source ~/oracle_conf.sh $i 1 ; $co getPolicy | grep 514 ; done
+
+## Fill Buffer in 1s
+for i in {1..31} ; do time printf "B\n400\n10\nC\n32\nX" | ./pkpspeed -s crypto_user -p user123 -pname PARTITION_$i ; done
+## Fetch Logs
+for i in {1..31} ; do source ~/oracle_conf.sh $i 1 ; time $au getAuditLogs -l bin$i -s sign$i ; done

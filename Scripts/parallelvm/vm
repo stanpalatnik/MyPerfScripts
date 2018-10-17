@@ -1,0 +1,7 @@
+login="/root/build/1528/bin/Cfm2Util singlecmd loginHSM -u CU -s crypto_user -p user123 genRSAKeyPair -m 2048 -e 65537 -l rsa"
+
+for i in {1..999999}
+do
+    $login
+    sleep 2
+done

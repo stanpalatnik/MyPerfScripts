@@ -1,0 +1,9 @@
+client - perf@10.89.229.135
+535 - singlesocket (10.89.229.38)  Tuned Node 1
+534 - singlesocket (10.89.229.232) Tuned Node 2
+541 - singlesocket (10.89.229.82)  Tuned Node 3
+537 - singlesocket (10.89.229.86/231)  Tuned Node 4
+
+
+340 - dualsocket   (10.89.229.83) Tuned ( but dual socket present )
+343 - dualsocket   (10.89.229.59) Tuned ( but dual socket present )

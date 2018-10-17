@@ -1,0 +1,2 @@
+a=$(cat tps | grep OPERATIONS | awk '{print $NF}' | cut -d / -f 1 | paste -sd+ - | bc) ; b=$((a / $time)) ; c=$((b*16384*8/1048576)) ; echo $c
+a=$(cat tps | grep OPERATIONS | awk '{print $NF}' | cut -d / -f 1 | paste -sd+ - | bc) ; b=$((a / $time)) ; echo $b

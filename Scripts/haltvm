@@ -1,0 +1,42 @@
+sshpass -p a ssh -o StrictHostKeyChecking=no 10.89.231.140 "nohup init 6 &>/dev/null & exit"
+sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.4 "nohup shutdown -h now &>/dev/null & exit"
+for i in {2..31} ; do sshpass -p a scp /tmp/amazon_conf 30.0.0.$i: ; done
+
+for i in {2..32} ; do sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "mkdir -p /root/build/1521" ; done
+for i in {2..32} ; do sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "tar -zxf /root/LiquidSecurity-NFBE-2.03-15-tag-21.tgz" ; done
+for i in {2..32} ; do sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "sh /root/pkg-Install.sh" ; done
+for i in {2..32} ; do sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "sh /root/pkg-Install.sh" ; done
+
+for i in {2..32} ; do sshpass -p a scp /tmp/sc 30.0.0.$i: ; done
+for i in {2..32} ; do sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "sh sc" ; done
+
+script sc
+--------------
+cd /root/LiquidSecurity-NFBE-2.03-15-tag-21/liquidsec_pf_vf_driver
+sh driver_load.sh hsm_load src/
+dmesg -c
+sleep 1
+dmesg -c
+
+for i in {2..32} ; do j=$(( $i - 1 )) ; cp -rv netlink.conf netlink$j.conf ; done
+for i in {2..32} ; do j=$(( $i - 1 )) ; sed -i "s/PARTITION_1/PARTITION_$j/g" netlink$j.conf ; done
+for i in {2..32} ; do j=$(( $i - 1 )) ; sed -i "s/pek.key_1/pek.key_$j/g" netlink$j.conf ; done
+for i in {2..32} ; do j=$(( $i - 1 )) ; sshpass -p a scp netlink$j.conf 30.0.0.$i:/root/build/1521/bin ; done
+
+for i in {2..2} ; do j=$(( $i - 1 )) ; sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "$cmd1 PARTITION_$j $zeroize" ; done
+for i in {2..2} ; do j=$(( $i - 1 )) ; sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "$cmd1 PARTITION_$j $init" ; done
+for i in {2..2} ; do j=$(( $i - 1 )) ; sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "$cmd1 PARTITION_$j $kek" ; done
+for i in {2..2} ; do j=$(( $i - 1 )) ; sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "$cmd1 PARTITION_$j $au" ; done
+
+Starting AuditLogDaemon
+for i in {2..32} ; do j=$(( $i - 1 )) ; sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "/root/build/1521/bin/AuditLogDaemon -f /root/build/1521/bin/netlink$j.conf &>/dev/null & exit" ; done
+
+
+for i in {2..8} ; do sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "sh sc2 &>/dev/null & exit" ; done
+for i in {9..14} ; do sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "sh sc3 &>/dev/null & exit" ; done
+for i in {15..20} ; do sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "sh sc4 &>/dev/null & exit" ; done
+for i in {21..26} ; do sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "sh sc5 &>/dev/null & exit" ; done
+for i in {27..32} ; do sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "sh sc1 &>/dev/null & exit" ; done
+
+
+for i in {2..32} ; do j=$(( $i - 1 )) ; sshpass -p a ssh -o StrictHostKeyChecking=no 30.0.0.$i "nohup perl fillbuffer 1750 $j &>/dev/null & exit" ; done

@@ -1,0 +1,5 @@
+#!/bin/sh
+      
+echo "Executing /etc/qemu-ifdown"
+sudo /usr/sbin/ifconfig $1 down
+sudo /usr/sbin/brctl delif brd0 $1
