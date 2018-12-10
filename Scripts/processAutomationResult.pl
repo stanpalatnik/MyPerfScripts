@@ -30,9 +30,20 @@ foreach my $line (@lines)
             $groupname = `echo \"$hash{$counter}{group}\" \| grep \"Group Name\" \| cut -d : -f 2`;       chomp $groupname;
             $commandname = `echo \"$hash{$counter}{command}\" \| grep \"Command Name\" \| cut -d : -f 2`; chomp $commandname;
             $testtype = `echo \"$hash{$counter}{testtype}\" \| grep \"Test Type\" \| cut -d : -f 2`;      chomp $testtype;
-            print "testno: $testno, $groupname: $groupname, commandname: $commandname, testtype: $testtype\n";
+            print "TestNo: $testno, GroupName: $groupname, CommandName: $commandname, TestType: $testtype\n";
         }
     }
 }
 print "\n";
 close FH;
+
+open (RH,"<output");
+open (WH, ">newtext");
+while (<RH>)
+{
+chomp $_;
+$_=~s/\s+/ /g;
+print WH $_;
+print WH "\n";
+}
+close RH; close WH;
